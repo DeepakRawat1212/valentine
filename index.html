@@ -83,11 +83,14 @@ cursor:pointer;
 <script>
 
 /* start music after tap */
+document.body.addEventListener("click", startMusic, { once:true });
+
 function startMusic(){
 document.getElementById("bgMusic").play();
 document.getElementById("startBtn").style.display="none";
 document.getElementById("main").style.display="block";
 }
+
 
 /* floating hearts */
 setInterval(()=>{
