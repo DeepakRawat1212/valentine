@@ -19,8 +19,12 @@ flex-direction:column;
 }
 
 h1{
-font-size:42px;
+font-size:8vw;
 text-shadow:0 0 20px white,0 0 40px red;
+}
+
+h2{
+font-size:5vw;
 }
 
 /* floating hearts */
@@ -50,19 +54,19 @@ position:absolute;
 
 /* buttons */
 button{
-padding:15px 35px;
-font-size:22px;
+padding:20px 50px;
+font-size:6vw;
 border:none;
-border-radius:25px;
+border-radius:30px;
 margin:10px;
 cursor:pointer;
 }
 
-#yes{background:red;color:white;}
+#yes{background:red;color:white;opacity:0.5;}
 #no{background:white;color:red;}
 #startBtn{background:black;color:white;}
 
-/* glowing popup */
+/* popup */
 #popup{
 display:none;
 position:fixed;
@@ -71,42 +75,35 @@ left:50%;
 transform:translate(-50%,-50%);
 background:linear-gradient(135deg,#ff9aa2,#ffc3a0);
 color:white;
-padding:35px;
+padding:40px;
 border-radius:25px;
-box-shadow:0 0 25px #ff4d6d,0 0 60px #ff4d6d;
+box-shadow:0 0 40px #ff4d6d,0 0 80px #ff4d6d;
 text-align:center;
 z-index:1000;
-animation:pop 0.4s ease;
+font-size:6vw;
 }
 
-/* YES celebration popup */
-#yesPopup{
+/* video popup */
+#videoPopup{
 display:none;
 position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-background:linear-gradient(135deg,#ff758c,#ff7eb3);
-color:white;
-padding:40px;
-border-radius:30px;
-box-shadow:0 0 40px #ff4d6d,0 0 80px #ff4d6d;
-text-align:center;
 z-index:2000;
-font-size:26px;
-animation:pop 0.5s ease;
 }
 
-@keyframes pop{
-0%{transform:translate(-50%,-50%) scale(0.6);opacity:0;}
-100%{transform:translate(-50%,-50%) scale(1);opacity:1;}
+video{
+width:90vw;
+border-radius:20px;
+box-shadow:0 0 40px red;
 }
 </style>
 </head>
 
 <body>
 
-<button onclick="startMusic()" id="startBtn">Open your message ❤️</button>
+<button onclick="startMusic()" id="startBtn">Open ❤️</button>
 
 <audio id="bgMusic" loop>
 <source src="music.mp3" type="audio/mpeg">
@@ -116,20 +113,21 @@ animation:pop 0.5s ease;
 <h1>Aanchi Bisht ❤️</h1>
 <h2>Will you be my Valentine? — Deepu</h2>
 
-<button id="yes" onclick="yes()">YES ❤️</button>
 <button id="no" onclick="no1()">NO 😄</button>
+<button id="yes" onclick="yes()" disabled>YES ❤️</button>
 </div>
 
-<!-- NO popup -->
+<!-- popup -->
 <div id="popup">
 <h2 id="popupText">Are you sure?</h2>
-<button onclick="nextNo()">Yes</button>
-<button onclick="closePopup()">No</button>
+<button onclick="nextNo()">Continue</button>
 </div>
 
-<!-- YES popup -->
-<div id="yesPopup">
-Yayyyy ❤️ Love you too baby — Deepu
+<!-- video popup -->
+<div id="videoPopup">
+<video id="loveVideo" controls autoplay>
+<source src="yesvideo.mp4" type="video/mp4">
+</video>
 </div>
 
 <script>
@@ -141,17 +139,16 @@ document.getElementById("startBtn").style.display="none";
 document.getElementById("main").style.display="block";
 }
 
-/* floating hearts continuously */
+/* floating hearts */
 setInterval(()=>{
 let h=document.createElement("div");
 h.className="heart";
 h.style.left=Math.random()*100+"vw";
-h.style.animationDuration=(Math.random()*3+3)+"s";
 document.body.appendChild(h);
 setTimeout(()=>h.remove(),6000);
-},300);
+},200);
 
-/* NO popup chain */
+/* NO chain */
 let step=0;
 
 function no1(){
@@ -164,31 +161,31 @@ document.getElementById("popupText").innerText=text;
 document.getElementById("popup").style.display="block";
 }
 
-function closePopup(){
-document.getElementById("popup").style.display="none";
-}
-
 function nextNo(){
 step++;
 if(step==2){ showPopup("Really sure? 💔"); }
 else if(step==3){ showPopup("Last chance... 😭"); }
-else{ showPopup("Okay… I will still love you ❤️"); }
+else{
+document.getElementById("popup").style.display="none";
+document.getElementById("yes").disabled=false;
+document.getElementById("yes").style.opacity="1";
+}
 }
 
-/* YES celebration */
+/* YES → play video */
 function yes(){
-document.getElementById("yesPopup").style.display="block";
+document.getElementById("videoPopup").style.display="block";
 
-/* heart burst */
-for(let i=0;i<40;i++){
+/* many hearts celebration */
+for(let i=0;i<80;i++){
 let h=document.createElement("div");
 h.className="heart";
 h.style.left=Math.random()*100+"vw";
-h.style.animationDuration="3s";
 document.body.appendChild(h);
 setTimeout(()=>h.remove(),3000);
 }
 }
+
 </script>
 
 </body>
