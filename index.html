@@ -18,23 +18,23 @@ color:white;
 flex-direction:column;
 }
 
-/* intro screens */
-#intro,#intro2{
+/* TAP START */
+#tapStart{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
 background:black;
+color:white;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:8vw;
-text-align:center;
-z-index:5000;
+font-size:7vw;
+z-index:9000;
 }
-#intro2{display:none;color:#ff7eb3;text-shadow:0 0 20px white,0 0 50px pink;}
 
+/* headings */
 h1{font-size:9vw;text-shadow:0 0 20px white,0 0 40px red;}
 h2{font-size:5vw;}
 
@@ -89,15 +89,22 @@ box-shadow:0 0 40px #ff4d6d;
 font-size:6vw;
 }
 
-/* final */
-#finalMessage{
+/* glowing love box */
+#loveBox{
 display:none;
 position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-font-size:8vw;
-text-shadow:0 0 25px white,0 0 60px red;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+padding:40px 60px;
+border-radius:30px;
+box-shadow:0 0 40px #ff4d6d,0 0 80px #ff4d6d;
+text-align:center;
+font-size:7vw;
+color:white;
+text-shadow:0 0 20px white,0 0 40px pink;
+z-index:5000;
 }
 
 /* fireworks */
@@ -115,8 +122,7 @@ animation:burst 1.5s linear forwards;
 
 <body>
 
-<div id="intro">Someone very special sent you a message…</div>
-<div id="intro2">Aanchi… ❤️</div>
+<div id="tapStart" onclick="startExperience()">Tap to open your message ❤️</div>
 
 <audio id="bgMusic" loop>
 <source src="music.mp3" type="audio/mpeg">
@@ -135,27 +141,21 @@ animation:burst 1.5s linear forwards;
 <button onclick="nextNo()">Continue</button>
 </div>
 
-<div id="finalMessage">Yayyy ❤️ You are my Valentine</div>
+<div id="loveBox">
+Yayyy ❤️ We are a perfect match<br>
+Love you sweetie 💕
+</div>
 
 <script>
 
-/* intro cinematic */
-setTimeout(()=>{
-document.getElementById("intro").style.display="none";
-document.getElementById("intro2").style.display="flex";
-},3000);
-
-setTimeout(()=>{
-document.getElementById("intro2").style.display="none";
+/* tap start (required for phone music autoplay) */
+function startExperience(){
+document.getElementById("tapStart").style.display="none";
 document.getElementById("main").style.display="block";
+document.getElementById("bgMusic").play();
+}
 
-/* play music AFTER intro (important for mobile autoplay) */
-let music=document.getElementById("bgMusic");
-music.play().catch(()=>{});
-
-},6000);
-
-/* floating hearts */
+/* floating hearts continuously */
 setInterval(()=>{
 let h=document.createElement("div");
 h.className="heart";
@@ -184,9 +184,10 @@ document.getElementById("yes").style.opacity="1";
 
 /* YES celebration */
 function yes(){
+
 document.getElementById("main").style.display="none";
 document.getElementById("bgMusic").pause();
-document.getElementById("finalMessage").style.display="block";
+document.getElementById("loveBox").style.display="block";
 
 /* fireworks */
 for(let i=0;i<70;i++){
