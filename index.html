@@ -55,30 +55,8 @@ position:absolute;
 .heart:after{left:-10px;}
 
 @keyframes float{
-0%{transform:translateY(100vh) rotate(45deg);opacity:1;}
-100%{transform:translateY(-10vh) rotate(45deg);opacity:0;}
-}
-
-/* bunny sticker float */
-#cuteSticker{
-font-size:6vw;
-margin-bottom:20px;
-animation:floatStickerTop 4s ease-in-out infinite alternate;
-}
-@keyframes floatStickerTop{
-from{transform:translateY(0);}
-to{transform:translateY(-15px);}
-}
-
-/* flowers */
-.flower{
-position:fixed;
-font-size:30px;
-animation:floatFlower 5s linear infinite;
-}
-@keyframes floatFlower{
-0%{transform:translateY(100vh);}
-100%{transform:translateY(-10vh);}
+0%{transform:translateY(100vh);opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
 }
 
 /* popup */
@@ -103,7 +81,6 @@ top:50%;
 left:50%;
 transform:translate(-50%,-50%);
 z-index:3000;
-text-align:center;
 }
 video{width:80vw;border-radius:20px;}
 
@@ -129,14 +106,6 @@ text-shadow:0 0 20px red;
 </audio>
 
 <div id="main" style="display:none;">
-
-<div id="cuteSticker">
-જ⁀➴ ♡ <br>
-/)_/) <br>
-(⸝⸝ >.<) &lt; ! <br>
-o(   𐭩❤️
-</div>
-
 <h1>Aanchi Bisht ❤️</h1>
 <h2>Will you be my Valentine? — Deepu</h2>
 
@@ -150,8 +119,7 @@ o(   𐭩❤️
 </div>
 
 <div id="videoPopup">
-<h2>Deepak’s happy dance for youuu only — Yayyy ❤️</h2>
-<video id="loveVideo" autoplay controls onended="videoEnded()">
+<video id="loveVideo" autoplay playsinline>
 <source src="yesvideo.mp4" type="video/mp4">
 </video>
 </div>
@@ -199,17 +167,13 @@ document.getElementById("yes").style.opacity="1";
 /* YES */
 function yes(){
 document.getElementById("bgMusic").pause();
+let v=document.getElementById("loveVideo");
 document.getElementById("videoPopup").style.display="block";
+v.currentTime=0;
+v.play();
 
-/* flowers */
-for(let i=0;i<50;i++){
-let f=document.createElement("div");
-f.className="flower";
-f.innerHTML="🌸";
-f.style.left=Math.random()*100+"vw";
-document.body.appendChild(f);
-setTimeout(()=>f.remove(),5000);
-}
+/* detect end (works on mobile reliably) */
+v.onended = videoEnded;
 }
 
 /* after video */
