@@ -15,15 +15,16 @@ align-items:center;
 height:100vh;
 text-align:center;
 color:white;
+flex-direction:column;
 }
 
-/* glowing title */
+/* glowing name */
 h1{
 font-size:42px;
 text-shadow:0 0 20px white,0 0 40px red;
 }
 
-/* hearts */
+/* floating hearts */
 .heart{
 position:fixed;
 width:20px;
@@ -59,24 +60,34 @@ cursor:pointer;
 
 #yes{background:red;color:white;}
 #no{background:white;color:red;}
+#startBtn{background:black;color:white;}
 </style>
 </head>
 
 <body>
 
-<audio autoplay loop>
+<button onclick="startMusic()" id="startBtn">Open your message ❤️</button>
+
+<audio id="bgMusic" loop>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<div>
+<div id="main" style="display:none;">
 <h1>Aanchi Bisht ❤️</h1>
 <h2>Will you be my Valentine? — Deepu</h2>
 
-<button onclick="yes()">YES ❤️</button>
-<button onclick="no1()">NO 😄</button>
+<button id="yes" onclick="yes()">YES ❤️</button>
+<button id="no" onclick="no1()">NO 😄</button>
 </div>
 
 <script>
+
+/* start music after tap */
+function startMusic(){
+document.getElementById("bgMusic").play();
+document.getElementById("startBtn").style.display="none";
+document.getElementById("main").style.display="block";
+}
 
 /* floating hearts */
 setInterval(()=>{
@@ -99,7 +110,7 @@ alert("I will still love you forever ❤️");
 }
 }
 
-/* YES fireworks message */
+/* YES */
 function yes(){
 alert("Yay Aanchi! I Love You Forever ❤️✨ — Deepu");
 }
@@ -107,4 +118,5 @@ alert("Yay Aanchi! I Love You Forever ❤️✨ — Deepu");
 
 </body>
 </html>
+
 
