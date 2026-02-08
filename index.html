@@ -59,16 +59,26 @@ position:absolute;
 100%{transform:translateY(-10vh) rotate(45deg);opacity:0;}
 }
 
+/* bunny sticker float */
+#cuteSticker{
+font-size:6vw;
+margin-bottom:20px;
+animation:floatStickerTop 4s ease-in-out infinite alternate;
+}
+@keyframes floatStickerTop{
+from{transform:translateY(0);}
+to{transform:translateY(-15px);}
+}
+
 /* flowers */
 .flower{
 position:fixed;
 font-size:30px;
 animation:floatFlower 5s linear infinite;
 }
-
 @keyframes floatFlower{
-0%{transform:translateY(100vh);opacity:1;}
-100%{transform:translateY(-10vh);opacity:0;}
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
 }
 
 /* popup */
@@ -96,6 +106,17 @@ z-index:3000;
 text-align:center;
 }
 video{width:80vw;border-radius:20px;}
+
+/* final message */
+#finalMessage{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:7vw;
+text-shadow:0 0 20px red;
+}
 </style>
 </head>
 
@@ -108,6 +129,14 @@ video{width:80vw;border-radius:20px;}
 </audio>
 
 <div id="main" style="display:none;">
+
+<div id="cuteSticker">
+જ⁀➴ ♡ <br>
+/)_/) <br>
+(⸝⸝ >.<) &lt; ! <br>
+o(   𐭩❤️
+</div>
+
 <h1>Aanchi Bisht ❤️</h1>
 <h2>Will you be my Valentine? — Deepu</h2>
 
@@ -115,23 +144,25 @@ video{width:80vw;border-radius:20px;}
 <button id="yes" onclick="yes()" disabled>YES ❤️</button>
 </div>
 
-<!-- popup -->
 <div id="popup">
 <h2 id="popupText">Are you sure?</h2>
 <button onclick="nextNo()">Continue</button>
 </div>
 
-<!-- video popup -->
 <div id="videoPopup">
 <h2>Deepak’s happy dance for youuu only — Yayyy ❤️</h2>
-<video id="loveVideo" autoplay controls>
+<video id="loveVideo" autoplay controls onended="videoEnded()">
 <source src="yesvideo.mp4" type="video/mp4">
 </video>
 </div>
 
+<div id="finalMessage">
+<div id="msgText">Yayyy we are a perfect match ❤️</div>
+</div>
+
 <script>
 
-/* start music */
+/* start */
 function startMusic(){
 document.getElementById("bgMusic").play();
 document.getElementById("startBtn").style.display="none";
@@ -149,21 +180,15 @@ setTimeout(()=>h.remove(),6000);
 
 /* NO chain */
 let step=0;
-
-function no1(){
-step=1;
-showPopup("Are you sure? 😢");
-}
-
-function showPopup(text){
-document.getElementById("popupText").innerText=text;
+function no1(){ step=1; showPopup("Are you sure? 😢"); }
+function showPopup(t){
+document.getElementById("popupText").innerText=t;
 document.getElementById("popup").style.display="block";
 }
-
 function nextNo(){
 step++;
-if(step==2){ showPopup("Really sure? 💔"); }
-else if(step==3){ showPopup("Last chance... 😭"); }
+if(step==2){showPopup("Really sure? 💔");}
+else if(step==3){showPopup("Last chance... 😭");}
 else{
 document.getElementById("popup").style.display="none";
 document.getElementById("yes").disabled=false;
@@ -171,17 +196,13 @@ document.getElementById("yes").style.opacity="1";
 }
 }
 
-/* YES pressed */
+/* YES */
 function yes(){
-
-/* stop music */
 document.getElementById("bgMusic").pause();
-
-/* show video */
 document.getElementById("videoPopup").style.display="block";
 
-/* flowers floating */
-for(let i=0;i<60;i++){
+/* flowers */
+for(let i=0;i<50;i++){
 let f=document.createElement("div");
 f.className="flower";
 f.innerHTML="🌸";
@@ -191,6 +212,15 @@ setTimeout(()=>f.remove(),5000);
 }
 }
 
+/* after video */
+function videoEnded(){
+document.getElementById("videoPopup").style.display="none";
+document.getElementById("finalMessage").style.display="block";
+
+setTimeout(()=>{
+document.getElementById("msgText").innerText="Love you sweetie 💕";
+},3000);
+}
 </script>
 
 </body>
