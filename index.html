@@ -16,25 +16,29 @@ height:100vh;
 text-align:center;
 color:white;
 flex-direction:column;
+transition:background 2s;
 }
 
-h1{font-size:8vw;text-shadow:0 0 20px white,0 0 40px red;}
+/* headings */
+h1{font-size:9vw;text-shadow:0 0 20px white,0 0 40px red;}
 h2{font-size:5vw;}
 
+/* buttons */
 button{
-padding:20px 50px;
+padding:20px 55px;
 font-size:6vw;
 border:none;
-border-radius:30px;
+border-radius:35px;
 margin:10px;
 cursor:pointer;
+box-shadow:0 0 20px rgba(255,0,0,0.4);
 }
 
 #yes{background:red;color:white;opacity:0.5;}
 #no{background:white;color:red;}
 #startBtn{background:black;color:white;}
 
-/* hearts */
+/* floating hearts */
 .heart{
 position:fixed;
 width:20px;
@@ -55,8 +59,8 @@ position:absolute;
 .heart:after{left:-10px;}
 
 @keyframes float{
-0%{transform:translateY(100vh);opacity:1;}
-100%{transform:translateY(-10vh);opacity:0;}
+0%{transform:translateY(100vh) rotate(45deg);opacity:1;}
+100%{transform:translateY(-10vh) rotate(45deg);opacity:0;}
 }
 
 /* popup */
@@ -73,17 +77,6 @@ box-shadow:0 0 40px #ff4d6d;
 font-size:6vw;
 }
 
-/* video popup */
-#videoPopup{
-display:none;
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-z-index:3000;
-}
-video{width:80vw;border-radius:20px;}
-
 /* final message */
 #finalMessage{
 display:none;
@@ -91,8 +84,36 @@ position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-font-size:7vw;
-text-shadow:0 0 20px red;
+font-size:8vw;
+text-shadow:0 0 25px white,0 0 60px red;
+animation:fadeGlow 2s ease forwards;
+}
+
+@keyframes fadeGlow{
+0%{opacity:0; transform:translate(-50%,-60%);}
+100%{opacity:1; transform:translate(-50%,-50%);}
+}
+
+/* fireworks spark */
+.spark{
+position:fixed;
+font-size:30px;
+animation:burst 1.5s linear forwards;
+}
+@keyframes burst{
+0%{transform:scale(0.5);opacity:1;}
+100%{transform:translateY(-220px) scale(1.6);opacity:0;}
+}
+
+/* sparkle particles */
+.particle{
+position:fixed;
+font-size:20px;
+animation:particles 5s linear infinite;
+}
+@keyframes particles{
+0%{transform:translateY(100vh);opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
 }
 </style>
 </head>
@@ -118,14 +139,8 @@ text-shadow:0 0 20px red;
 <button onclick="nextNo()">Continue</button>
 </div>
 
-<div id="videoPopup">
-<video id="loveVideo" autoplay playsinline>
-<source src="yesvideo.mp4" type="video/mp4">
-</video>
-</div>
-
 <div id="finalMessage">
-<div id="msgText">Yayyy we are a perfect match ❤️</div>
+Yayyy ❤️ You are my Valentine
 </div>
 
 <script>
@@ -137,14 +152,14 @@ document.getElementById("startBtn").style.display="none";
 document.getElementById("main").style.display="block";
 }
 
-/* hearts */
+/* floating hearts continuously */
 setInterval(()=>{
 let h=document.createElement("div");
 h.className="heart";
 h.style.left=Math.random()*100+"vw";
 document.body.appendChild(h);
 setTimeout(()=>h.remove(),6000);
-},200);
+},250);
 
 /* NO chain */
 let step=0;
@@ -164,26 +179,44 @@ document.getElementById("yes").style.opacity="1";
 }
 }
 
-/* YES */
+/* YES celebration */
 function yes(){
+
 document.getElementById("bgMusic").pause();
-let v=document.getElementById("loveVideo");
-document.getElementById("videoPopup").style.display="block";
-v.currentTime=0;
-v.play();
-
-/* detect end (works on mobile reliably) */
-v.onended = videoEnded;
-}
-
-/* after video */
-function videoEnded(){
-document.getElementById("videoPopup").style.display="none";
 document.getElementById("finalMessage").style.display="block";
 
-setTimeout(()=>{
-document.getElementById("msgText").innerText="Love you sweetie 💕";
-},3000);
+/* heart rain */
+for(let i=0;i<90;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),4000);
+}
+
+/* fireworks */
+for(let i=0;i<70;i++){
+let s=document.createElement("div");
+s.className="spark";
+s.innerHTML="❤️";
+s.style.left=(window.innerWidth/2)+"px";
+s.style.top=(window.innerHeight/2)+"px";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),1500);
+}
+
+/* sparkle particles */
+setInterval(()=>{
+let p=document.createElement("div");
+p.className="particle";
+p.innerHTML="✨";
+p.style.left=Math.random()*100+"vw";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),5000);
+},200);
+
+/* romantic glow background */
+document.body.style.background="linear-gradient(to bottom,#ff758c,#ff7eb3)";
 }
 </script>
 
