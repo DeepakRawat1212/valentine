@@ -18,16 +18,23 @@ color:white;
 flex-direction:column;
 }
 
-h1{
-font-size:8vw;
-text-shadow:0 0 20px white,0 0 40px red;
+h1{font-size:8vw;text-shadow:0 0 20px white,0 0 40px red;}
+h2{font-size:5vw;}
+
+button{
+padding:20px 50px;
+font-size:6vw;
+border:none;
+border-radius:30px;
+margin:10px;
+cursor:pointer;
 }
 
-h2{
-font-size:5vw;
-}
+#yes{background:red;color:white;opacity:0.5;}
+#no{background:white;color:red;}
+#startBtn{background:black;color:white;}
 
-/* floating hearts */
+/* hearts */
 .heart{
 position:fixed;
 width:20px;
@@ -52,19 +59,17 @@ position:absolute;
 100%{transform:translateY(-10vh) rotate(45deg);opacity:0;}
 }
 
-/* buttons */
-button{
-padding:20px 50px;
-font-size:6vw;
-border:none;
-border-radius:30px;
-margin:10px;
-cursor:pointer;
+/* flowers */
+.flower{
+position:fixed;
+font-size:30px;
+animation:floatFlower 5s linear infinite;
 }
 
-#yes{background:red;color:white;opacity:0.5;}
-#no{background:white;color:red;}
-#startBtn{background:black;color:white;}
+@keyframes floatFlower{
+0%{transform:translateY(100vh);opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
 
 /* popup */
 #popup{
@@ -74,12 +79,9 @@ top:50%;
 left:50%;
 transform:translate(-50%,-50%);
 background:linear-gradient(135deg,#ff9aa2,#ffc3a0);
-color:white;
 padding:40px;
 border-radius:25px;
-box-shadow:0 0 40px #ff4d6d,0 0 80px #ff4d6d;
-text-align:center;
-z-index:1000;
+box-shadow:0 0 40px #ff4d6d;
 font-size:6vw;
 }
 
@@ -90,14 +92,10 @@ position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-z-index:2000;
+z-index:3000;
+text-align:center;
 }
-
-video{
-width:90vw;
-border-radius:20px;
-box-shadow:0 0 40px red;
-}
+video{width:80vw;border-radius:20px;}
 </style>
 </head>
 
@@ -125,7 +123,8 @@ box-shadow:0 0 40px red;
 
 <!-- video popup -->
 <div id="videoPopup">
-<video id="loveVideo" controls autoplay>
+<h2>Deepak’s happy dance for youuu only — Yayyy ❤️</h2>
+<video id="loveVideo" autoplay controls>
 <source src="yesvideo.mp4" type="video/mp4">
 </video>
 </div>
@@ -139,7 +138,7 @@ document.getElementById("startBtn").style.display="none";
 document.getElementById("main").style.display="block";
 }
 
-/* floating hearts */
+/* hearts */
 setInterval(()=>{
 let h=document.createElement("div");
 h.className="heart";
@@ -172,17 +171,23 @@ document.getElementById("yes").style.opacity="1";
 }
 }
 
-/* YES → play video */
+/* YES pressed */
 function yes(){
+
+/* stop music */
+document.getElementById("bgMusic").pause();
+
+/* show video */
 document.getElementById("videoPopup").style.display="block";
 
-/* many hearts celebration */
-for(let i=0;i<80;i++){
-let h=document.createElement("div");
-h.className="heart";
-h.style.left=Math.random()*100+"vw";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),3000);
+/* flowers floating */
+for(let i=0;i<60;i++){
+let f=document.createElement("div");
+f.className="flower";
+f.innerHTML="🌸";
+f.style.left=Math.random()*100+"vw";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),5000);
 }
 }
 
