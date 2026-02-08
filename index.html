@@ -35,7 +35,6 @@ z-index:5000;
 }
 #intro2{display:none;color:#ff7eb3;text-shadow:0 0 20px white,0 0 50px pink;}
 
-/* headings */
 h1{font-size:9vw;text-shadow:0 0 20px white,0 0 40px red;}
 h2{font-size:5vw;}
 
@@ -51,7 +50,7 @@ cursor:pointer;
 #yes{background:red;color:white;opacity:0.5;}
 #no{background:white;color:red;}
 
-/* hearts */
+/* floating hearts */
 .heart{
 position:fixed;
 width:20px;
@@ -90,7 +89,7 @@ box-shadow:0 0 40px #ff4d6d;
 font-size:6vw;
 }
 
-/* final message */
+/* final */
 #finalMessage{
 display:none;
 position:fixed;
@@ -149,7 +148,11 @@ document.getElementById("intro2").style.display="flex";
 setTimeout(()=>{
 document.getElementById("intro2").style.display="none";
 document.getElementById("main").style.display="block";
-document.getElementById("bgMusic").play();
+
+/* play music AFTER intro (important for mobile autoplay) */
+let music=document.getElementById("bgMusic");
+music.play().catch(()=>{});
+
 },6000);
 
 /* floating hearts */
@@ -181,17 +184,11 @@ document.getElementById("yes").style.opacity="1";
 
 /* YES celebration */
 function yes(){
-
-/* remove proposal screen */
 document.getElementById("main").style.display="none";
-
-/* stop music */
 document.getElementById("bgMusic").pause();
-
-/* show final */
 document.getElementById("finalMessage").style.display="block";
 
-/* fireworks burst */
+/* fireworks */
 for(let i=0;i<70;i++){
 let s=document.createElement("div");
 s.className="spark";
