@@ -35,7 +35,7 @@ z-index:5000;
 }
 #intro2{display:none;color:#ff7eb3;text-shadow:0 0 20px white,0 0 50px pink;}
 
-/* main headings */
+/* headings */
 h1{font-size:9vw;text-shadow:0 0 20px white,0 0 40px red;}
 h2{font-size:5vw;}
 
@@ -90,7 +90,7 @@ box-shadow:0 0 40px #ff4d6d;
 font-size:6vw;
 }
 
-/* final */
+/* final message */
 #finalMessage{
 display:none;
 position:fixed;
@@ -140,7 +140,7 @@ animation:burst 1.5s linear forwards;
 
 <script>
 
-/* intro sequence */
+/* intro cinematic */
 setTimeout(()=>{
 document.getElementById("intro").style.display="none";
 document.getElementById("intro2").style.display="flex";
@@ -181,10 +181,17 @@ document.getElementById("yes").style.opacity="1";
 
 /* YES celebration */
 function yes(){
+
+/* remove proposal screen */
+document.getElementById("main").style.display="none";
+
+/* stop music */
 document.getElementById("bgMusic").pause();
+
+/* show final */
 document.getElementById("finalMessage").style.display="block";
 
-/* fireworks */
+/* fireworks burst */
 for(let i=0;i<70;i++){
 let s=document.createElement("div");
 s.className="spark";
