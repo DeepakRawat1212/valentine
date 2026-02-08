@@ -18,7 +18,6 @@ color:white;
 flex-direction:column;
 }
 
-/* glowing name */
 h1{
 font-size:42px;
 text-shadow:0 0 20px white,0 0 40px red;
@@ -49,6 +48,7 @@ position:absolute;
 100%{transform:translateY(-10vh) rotate(45deg);opacity:0;}
 }
 
+/* buttons */
 button{
 padding:15px 35px;
 font-size:22px;
@@ -61,6 +61,46 @@ cursor:pointer;
 #yes{background:red;color:white;}
 #no{background:white;color:red;}
 #startBtn{background:black;color:white;}
+
+/* glowing popup */
+#popup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:linear-gradient(135deg,#ff9aa2,#ffc3a0);
+color:white;
+padding:35px;
+border-radius:25px;
+box-shadow:0 0 25px #ff4d6d,0 0 60px #ff4d6d;
+text-align:center;
+z-index:1000;
+animation:pop 0.4s ease;
+}
+
+/* YES celebration popup */
+#yesPopup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+color:white;
+padding:40px;
+border-radius:30px;
+box-shadow:0 0 40px #ff4d6d,0 0 80px #ff4d6d;
+text-align:center;
+z-index:2000;
+font-size:26px;
+animation:pop 0.5s ease;
+}
+
+@keyframes pop{
+0%{transform:translate(-50%,-50%) scale(0.6);opacity:0;}
+100%{transform:translate(-50%,-50%) scale(1);opacity:1;}
+}
 </style>
 </head>
 
@@ -80,19 +120,28 @@ cursor:pointer;
 <button id="no" onclick="no1()">NO 😄</button>
 </div>
 
+<!-- NO popup -->
+<div id="popup">
+<h2 id="popupText">Are you sure?</h2>
+<button onclick="nextNo()">Yes</button>
+<button onclick="closePopup()">No</button>
+</div>
+
+<!-- YES popup -->
+<div id="yesPopup">
+Yayyyy ❤️ Love you too baby — Deepu
+</div>
+
 <script>
 
-/* start music after tap */
-document.body.addEventListener("click", startMusic, { once:true });
-
+/* start music */
 function startMusic(){
 document.getElementById("bgMusic").play();
 document.getElementById("startBtn").style.display="none";
 document.getElementById("main").style.display="block";
 }
 
-
-/* floating hearts */
+/* floating hearts continuously */
 setInterval(()=>{
 let h=document.createElement("div");
 h.className="heart";
@@ -102,24 +151,45 @@ document.body.appendChild(h);
 setTimeout(()=>h.remove(),6000);
 },300);
 
-/* NO chain */
+/* NO popup chain */
+let step=0;
+
 function no1(){
-if(confirm("Are you sure? 😢")){
-if(confirm("Really sure? 💔")){
-if(confirm("Last chance... 😭")){
-alert("I will still love you forever ❤️");
-}
-}
-}
+step=1;
+showPopup("Are you sure? 😢");
 }
 
-/* YES */
+function showPopup(text){
+document.getElementById("popupText").innerText=text;
+document.getElementById("popup").style.display="block";
+}
+
+function closePopup(){
+document.getElementById("popup").style.display="none";
+}
+
+function nextNo(){
+step++;
+if(step==2){ showPopup("Really sure? 💔"); }
+else if(step==3){ showPopup("Last chance... 😭"); }
+else{ showPopup("Okay… I will still love you ❤️"); }
+}
+
+/* YES celebration */
 function yes(){
-alert("Yay Aanchi! I Love You Forever ❤️✨ — Deepu");
+document.getElementById("yesPopup").style.display="block";
+
+/* heart burst */
+for(let i=0;i<40;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration="3s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),3000);
+}
 }
 </script>
 
 </body>
 </html>
-
-
