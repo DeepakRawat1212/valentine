@@ -1,31 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>For My Love ❤️</title>
+<title>For Aanchi ❤️</title>
+
 <style>
 body{
-background:pink;
-text-align:center;
+margin:0;
+overflow:hidden;
+background:linear-gradient(to bottom,#ff9aa2,#ffc3a0);
 font-family:Arial;
-margin-top:150px;
-}
-button{
-padding:15px 30px;
-font-size:22px;
-background:red;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+text-align:center;
 color:white;
-border:none;
-border-radius:10px;
 }
+
+/* glowing title */
+h1{
+font-size:42px;
+text-shadow:0 0 20px white,0 0 40px red;
+}
+
+/* hearts */
+.heart{
+position:fixed;
+width:20px;
+height:20px;
+background:red;
+transform:rotate(45deg);
+animation:float 6s linear infinite;
+}
+.heart:before,.heart:after{
+content:"";
+width:20px;
+height:20px;
+background:red;
+border-radius:50%;
+position:absolute;
+}
+.heart:before{top:-10px;}
+.heart:after{left:-10px;}
+
+@keyframes float{
+0%{transform:translateY(100vh) rotate(45deg);opacity:1;}
+100%{transform:translateY(-10vh) rotate(45deg);opacity:0;}
+}
+
+button{
+padding:15px 35px;
+font-size:22px;
+border:none;
+border-radius:25px;
+margin:10px;
+cursor:pointer;
+}
+
+#yes{background:red;color:white;}
+#no{background:white;color:red;}
 </style>
 </head>
 
 <body>
 
-<h1>Will you be my Valentine? ❤️</h1>
-<p>You are the most beautiful part of my life.</p>
+<audio autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
 
-<button onclick="alert('I Love You ❤️')">Click Here</button>
+<div>
+<h1>Aanchi Bisht ❤️</h1>
+<h2>Will you be my Valentine? — Deepu</h2>
+
+<button onclick="yes()">YES ❤️</button>
+<button onclick="no1()">NO 😄</button>
+</div>
+
+<script>
+
+/* floating hearts */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(Math.random()*3+3)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},300);
+
+/* NO chain */
+function no1(){
+if(confirm("Are you sure? 😢")){
+if(confirm("Really sure? 💔")){
+if(confirm("Last chance... 😭")){
+alert("I will still love you forever ❤️");
+}
+}
+}
+}
+
+/* YES fireworks message */
+function yes(){
+alert("Yay Aanchi! I Love You Forever ❤️✨ — Deepu");
+}
+</script>
 
 </body>
 </html>
+
