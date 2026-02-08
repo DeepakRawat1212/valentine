@@ -137,18 +137,17 @@ Love you sweetie 💕
 
 <script>
 
-/* IMPORTANT: start music only after tap */
+/* START MUSIC ON TAP (MOBILE SAFE) */
 document.getElementById("tapStart").addEventListener("click", function(){
 document.getElementById("tapStart").style.display="none";
 document.getElementById("main").style.display="block";
 
-/* this tap allows audio on phones */
 let music = document.getElementById("bgMusic");
 music.currentTime = 0;
 music.play();
 });
 
-/* hearts */
+/* hearts floating */
 setInterval(()=>{
 let h=document.createElement("div");
 h.className="heart";
@@ -160,14 +159,16 @@ setTimeout(()=>h.remove(),6000);
 /* NO chain */
 let step=0;
 function no1(){ step=1; showPopup("Are you sure? 😢"); }
+
 function showPopup(t){
 document.getElementById("popupText").innerText=t;
 document.getElementById("popup").style.display="block";
 }
+
 function nextNo(){
 step++;
-if(step==2){showPopup("Really sure? 💔");}
-else if(step==3){showPopup("Last chance... 😭");}
+if(step==2){ showPopup("Really sure? 💔"); }
+else if(step==3){ showPopup("Last chance... 😭"); }
 else{
 document.getElementById("popup").style.display="none";
 document.getElementById("yes").disabled=false;
@@ -175,10 +176,9 @@ document.getElementById("yes").style.opacity="1";
 }
 }
 
-/* YES */
+/* YES — MUSIC CONTINUES */
 function yes(){
 document.getElementById("main").style.display="none";
-document.getElementById("bgMusic").pause();
 document.getElementById("loveBox").style.display="block";
 }
 </script>
